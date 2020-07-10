@@ -43,3 +43,4 @@ def main():
     output = ipv4_to_ipv6(ipv4)
     print(output)
 
+main()
