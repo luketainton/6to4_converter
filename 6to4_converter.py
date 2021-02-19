@@ -1,9 +1,18 @@
 #!/usr/bin/env python3
 
+import argparse
 
-def get_ipv4_from_user():
-    user_in = input("Enter IPv4 address: ")
-    return user_in
+
+def parse_args():
+    parser = argparse.ArgumentParser(description='Get 6to4 address from IPv4 address.')
+    parser.add_argument('-a', '--address', dest='address', action='store', help='IPv4 address', required=True)
+    args = parser.parse_args()
+    return args
+
+
+def get_address():
+    args = parse_args()
+    return args.address
 
 
 def ipv4_to_ipv6(ipv4):
@@ -39,8 +48,10 @@ def ipv4_to_ipv6(ipv4):
 
 
 def main():
-    ipv4 = get_ipv4_from_user()
+    ipv4 = get_address()
     output = ipv4_to_ipv6(ipv4)
     print(output)
 
-main()
+
+if __name__ == '__main__':
+    main()
