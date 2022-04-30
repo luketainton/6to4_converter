@@ -6,6 +6,7 @@ import argparse
 
 
 def parse_args():  # pragma: no cover
+    """Get arguments from CLI."""
     parser = argparse.ArgumentParser(description="Get 6to4 address from IPv4 address.")
     parser.add_argument(
         "-a",
@@ -19,6 +20,7 @@ def parse_args():  # pragma: no cover
 
 
 def ipv4_to_ipv6(ipv4):
+    """COnvert IPv4 address to IPv6."""
     ipv4_hex = ""
     ipv6_hextets = ["", ""]
 
@@ -49,6 +51,7 @@ def ipv4_to_ipv6(ipv4):
 
 
 def main():  # pragma: no cover
+    """Main function."""
     ipv4 = parse_args().address
     output = ipv4_to_ipv6(ipv4)
     print(output)
