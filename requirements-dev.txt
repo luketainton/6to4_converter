@@ -1,5 +1,5 @@
 black
 coverage
 pylint
-pylist-exit
+pylint-exit
 pytest
