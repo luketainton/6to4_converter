@@ -1,18 +1,23 @@
-FROM python:3.14-slim
+FROM python:3.14.2-slim
 LABEL maintainer="Luke Tainton <luke@tainton.uk>"
-LABEL org.opencontainers.image.source="https://github.com/luketainton/6to4_converter"
 USER root
 
 ENV PYTHONPATH="/run:/usr/local/lib/python3.14/lib-dynload:/usr/local/lib/python3.14/site-packages:/usr/local/lib/python3.14"
+ENV UV_PROJECT_ENVIRONMENT="/usr/local/"
+
 WORKDIR /run
 
 RUN mkdir -p /.local && \
     chmod -R 777 /.local && \
-    pip install -U pip
+    pip install -U pip uv==0.9.21
 
-COPY requirements.txt /run/requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+COPY pyproject.toml /run/pyproject.toml
+COPY uv.lock /run/uv.lock
+# needed for PDM build
+COPY README.md /run/README.md
 
-ENTRYPOINT ["python3", "-B", "-m", "app.main"]
+RUN uv sync --frozen
+
+ENTRYPOINT ["uv", "run", "python", "-B", "-m", "app.main"]
 
 COPY app /run/app
