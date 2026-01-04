@@ -1,9 +1,9 @@
-FROM python:3.11-slim
+FROM python:3.14-slim
 LABEL maintainer="Luke Tainton <luke@tainton.uk>"
 LABEL org.opencontainers.image.source="https://github.com/luketainton/6to4_converter"
 USER root
 
-ENV PYTHONPATH="/run:/usr/local/lib/python3.11/lib-dynload:/usr/local/lib/python3.11/site-packages:/usr/local/lib/python3.11"
+ENV PYTHONPATH="/run:/usr/local/lib/python3.14/lib-dynload:/usr/local/lib/python3.14/site-packages:/usr/local/lib/python3.14"
 WORKDIR /run
 
 RUN mkdir -p /.local && \
