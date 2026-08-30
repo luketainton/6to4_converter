@@ -18,3 +18,6 @@ dev = [
     "pytest>=9.0.2",
     "zipp>=3.19.1",
 ]
+
+[tool.ruff.lint]
+ignore = ["EXE001"]

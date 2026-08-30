@@ -1,6 +1,5 @@
 FROM python:3.14.7-slim
 LABEL maintainer="Luke Tainton <luke@tainton.uk>"
-USER root
 
 ENV PYTHONPATH="/run:/usr/local/lib/python3.14/lib-dynload:/usr/local/lib/python3.14/site-packages:/usr/local/lib/python3.14"
 ENV UV_PROJECT_ENVIRONMENT="/usr/local/"
@@ -9,7 +8,9 @@ WORKDIR /run
 
 RUN mkdir -p /.local && \
     chmod -R 777 /.local && \
-    pip install -U pip uv==0.9.21
+    pip install -U pip uv==0.9.21 && \
+    addgroup --system app && \
+    adduser --system --ingroup app app
 
 COPY pyproject.toml /run/pyproject.toml
 COPY uv.lock /run/uv.lock
@@ -18,6 +19,8 @@ COPY README.md /run/README.md
 
 RUN uv sync --frozen
 
-ENTRYPOINT ["uv", "run", "python", "-B", "-m", "app.main"]
-
 COPY app /run/app
+
+USER app
+
+ENTRYPOINT ["uv", "run", "python", "-B", "-m", "app.main"]
