@@ -1,4 +1,4 @@
-FROM python:3.14.7-slim
+FROM python:3.14.8-slim
 LABEL maintainer="Luke Tainton <luke@tainton.uk>"
 
 ENV PYTHONPATH="/run:/usr/local/lib/python3.14/lib-dynload:/usr/local/lib/python3.14/site-packages:/usr/local/lib/python3.14"
