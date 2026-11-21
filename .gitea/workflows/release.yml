@@ -96,3 +96,16 @@ jobs:
           readarray -t lines <<<"$strtags"
           for element in "${lines[@]}"; do docker push "$element"; done
           unset strtags lines
+
+  qualor:
+    name: Record release in Qualor
+    needs: create_docker
+    uses: actions/gha-workflows/.gitea/workflows/ci-python-unified.yml@main
+    with:
+      package-manager: uv
+      python-version: '3.14'
+      docker-enabled: false
+      security-scan: true
+      qualor-enabled: true
+    secrets:
+      ONEPASSWORD_SERVICE_ACCOUNT_TOKEN: ${{ secrets.ONEPASSWORD_SERVICE_ACCOUNT_TOKEN }}
